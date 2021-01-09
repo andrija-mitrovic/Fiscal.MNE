@@ -1,0 +1,1822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+    targetNamespace="https://efi.tax.gov.me/fs/schema"
+    xmlns:me="https://efi.tax.gov.me/fs/schema"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
+    elementFormDefault="qualified"
+    vc:minVersion="1.1">
+
+    <import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+
+    <element name="RegisterInvoiceRequest">
+        <annotation>
+            <documentation>Root XML element representing register invoice message.</documentation>
+        </annotation>
+        <complexType>
+            <all minOccurs="1" maxOccurs="1">
+                <element name="Header" type="me:RegisterInvoiceRequestHeaderType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>XML element representing header of the invoice containing data about the message (request) sent.</documentation>
+                    </annotation>
+                </element>
+                <element name="Invoice" type="me:InvoiceType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>XML element representing a single invoice.</documentation>
+                    </annotation>
+                </element>
+                <element ref="ds:Signature" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>XML element representing signature for the invoice.</documentation>
+                    </annotation>
+                </element>
+            </all>
+            <attribute name="Id" type="string" use="required" fixed="Request">
+                <annotation>
+                    <documentation>Attribute used for signature creation and verification.</documentation>
+                </annotation>
+            </attribute>
+            <attribute name="Version" type="me:IntSType" use="required" fixed="1">
+                <annotation>
+                    <documentation>Attribute used to specify compliance with XSD schema.</documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+    <element name="RegisterInvoiceResponse">
+        <annotation>
+            <documentation>Root XML element representing register invoice response message.</documentation>
+        </annotation>
+        <complexType>
+            <all>
+                <element name="Header" type="me:RegisterInvoiceResponseHeaderType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>Element representing the header of the message.</documentation>
+                    </annotation>
+                </element>
+                <element name="FIC" type="me:UUIDSType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>CIS generated verification code that can be used to uniquely identify registered invoice.</documentation>
+                    </annotation>
+                </element>
+                <element ref="ds:Signature" minOccurs="1" maxOccurs="1"/>
+            </all>
+            <attribute name="Id" type="string" use="required" fixed="Response">
+                <annotation>
+                    <documentation>Identification of the response, used to reference a signature.</documentation>
+                </annotation>
+            </attribute>
+            <attribute name="Version" type="me:IntSType" use="required" fixed="1">
+                <annotation>
+                    <documentation>Identification of the schema version.</documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+    <element name="RegisterCashDepositRequest">
+        <annotation>
+            <documentation>Root XML element representing cash deposit request message.</documentation>
+        </annotation>
+        <complexType>
+            <all minOccurs="1" maxOccurs="1">
+                <element name="Header" type="me:RegisterCashDepositRequestHeaderType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>Element representing the header of the message.</documentation>
+                    </annotation>
+                </element>
+                <element name="CashDeposit" type="me:CashDepositType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>Element representing a single cash deposit request.</documentation>
+                    </annotation>
+                </element>
+                <element ref="ds:Signature" minOccurs="1" maxOccurs="1"/>
+            </all>
+            <attribute name="Id" type="string" use="required" fixed="Request">
+                <annotation>
+                    <documentation>Identification of the request, used to reference a signature.</documentation>
+                </annotation>
+            </attribute>
+            <attribute name="Version" type="me:IntSType" use="required" fixed="1">
+                <annotation>
+                    <documentation>Identification of the schema version.</documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+    <element name="RegisterCashDepositResponse">
+        <annotation>
+            <documentation>Root XML element representing cash deposit response message.</documentation>
+        </annotation>
+        <complexType>
+            <all minOccurs="1" maxOccurs="1">
+                <element name="Header" type="me:RegisterCashDepositResponseHeaderType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>Element representing the header of the message.</documentation>
+                    </annotation>
+                </element>
+                <element name="FCDC" type="me:UUIDSType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>Fiscalization cash deposit code generated by the CIS.</documentation>
+                    </annotation>
+                </element>
+                <element ref="ds:Signature" minOccurs="1" maxOccurs="1"/>
+            </all>
+            <attribute name="Id" type="string" use="required" fixed="Response">
+                <annotation>
+                    <documentation>Identification of the response, used to reference a signature.</documentation>
+                </annotation>
+            </attribute>
+            <attribute name="Version" type="me:IntSType" use="required" fixed="1">
+                <annotation>
+                    <documentation>Identification of the schema version.</documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+    <element name="RegisterTCRRequest">
+        <annotation>
+            <documentation>Root XML element representing TCR request message.</documentation>
+        </annotation>
+        <complexType>
+            <all minOccurs="1" maxOccurs="1">
+                <element name="Header" type="me:RegisterTCRRequestHeaderType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>Element representing the header of the message.</documentation>
+                    </annotation>
+                </element>
+                <element name="TCR" type="me:TCRType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>XML element representing a single TCR registration message.</documentation>
+                    </annotation>
+                </element>
+                <element ref="ds:Signature" minOccurs="1" maxOccurs="1"/>
+            </all>
+            <attribute name="Id" type="string" use="required" fixed="Request">
+                <annotation>
+                    <documentation>Identification of the request, used to reference a signature.</documentation>
+                </annotation>
+            </attribute>
+            <attribute name="Version" type="me:IntSType" use="required" fixed="1">
+                <annotation>
+                    <documentation>Identification of the schema version.</documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+    <element name="RegisterTCRResponse">
+        <annotation>
+            <documentation>Root XML element representing TCR response message.</documentation>
+        </annotation>
+        <complexType>
+            <all minOccurs="1" maxOccurs="1">
+                <element name="Header" type="me:RegisterTCRResponseHeaderType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>Element representing the header of the message.</documentation>
+                    </annotation>
+                </element>
+                <element name="TCRCode" type="me:RegistrationCodeSType" minOccurs="1" maxOccurs="1">
+                    <annotation>
+                        <documentation>TCR code generated by the service.</documentation>
+                    </annotation>
+                </element>
+                <element ref="ds:Signature" minOccurs="1" maxOccurs="1"/>
+            </all>
+            <attribute name="Id" type="string" use="required" fixed="Response">
+                <annotation>
+                    <documentation>Identification of the response, used to reference a signature.</documentation>
+                </annotation>
+            </attribute>
+            <attribute name="Version" type="me:IntSType" use="required" fixed="1">
+                <annotation>
+                    <documentation>Identification of the schema version.</documentation>
+                </annotation>
+            </attribute>
+        </complexType>
+    </element>
+    
+    <complexType name="RegisterInvoiceRequestHeaderType">
+        <attribute name="UUID" type="me:UUIDSType" use="required">
+            <annotation>
+                <documentation>UUID generated by a TCR for every register sale data message send to the CIS.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SendDateTime" type="me:UTCSType" use="required">
+            <annotation>
+                <documentation>Date and time of sending the register invoice data message from a TCR to the CIS.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SubseqDelivType" type="me:SubseqDelivTypeSType" use="optional" >
+            <annotation>
+                <documentation>Type of subsequent delivery if message is delivered after invoice issuance.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="RegisterInvoiceResponseHeaderType">
+        <attribute name="UUID" type="me:UUIDSType" use="required">
+            <annotation>
+                <documentation>Element generated by the CIS for every message sent to the TCR. It uniquely identifies the message sent to the TCR.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="RequestUUID" type="me:UUIDSType" use="required">
+            <annotation>
+                <documentation>Element generated by the TCR and referenced by the CIS. It uniquely identifies the request message for which response message was sent to the TCR.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SendDateTime" type="me:UTCSType" use="required">
+            <annotation>
+                <documentation>Element represents date and time of sending the response message to the TCR. </documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+        <complexType name="RegisterCashDepositRequestHeaderType">
+        <attribute name="UUID" type="me:UUIDSType" use="required" >
+            <annotation>
+                <documentation>Element generated by the TCR. It uniquely identifies the request message sent from TCR to CIS.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SendDateTime" type="me:UTCSType" use="required" >
+            <annotation>
+                <documentation>Element represents date and time of sending the request message to the CIS.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SubseqDelivType" type="me:SubseqDelivTypeSType" use="optional" >
+            <annotation>
+                <documentation>Type of subsequent delivery if message is delivered after cash deposit issuance.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="RegisterCashDepositResponseHeaderType">
+        <attribute name="UUID" type="me:UUIDSType" use="required">
+            <annotation>
+                <documentation>Element generated by the CIS. It uniquely identifies the response message sent from CIS to TCR.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="RequestUUID" type="me:UUIDSType" use="required">
+            <annotation>
+                <documentation>Element generated by the TCR and referenced by the CIS. It uniquely identifies the request message for which response message was sent to the TCR.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SendDateTime" type="me:UTCSType" use="required">
+            <annotation>
+                <documentation>Element represents date and time of sending the response message to the TCR. </documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="RegisterTCRRequestHeaderType">
+        <attribute name="UUID" type="me:UUIDSType" use="required">
+            <annotation>
+                <documentation>Element generated by the TCR. It uniquely identifies the request message sent from TCR to CIS.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SendDateTime" type="me:UTCSType" use="required">
+            <annotation>
+                <documentation>Element represents date and time of sending the request message to the CIS.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="RegisterTCRResponseHeaderType">
+        <attribute name="UUID" type="me:UUIDSType" use="required">
+            <annotation>
+                <documentation>Element generated by the CIS. It uniquely identifies the response message sent from CIS to TCR. </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="RequestUUID" type="me:UUIDSType" use="required">
+            <annotation>
+                <documentation>Element generated by the TCR and referenced by the CIS. It uniquely identifies the request message for which the response message was sent to the TCR.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SendDateTime" type="me:UTCSType" use="required">
+            <annotation>
+                <documentation>Element represents date and time of sending the response message to the TCR. </documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+
+    <complexType name="InvoiceType">
+        <all>
+            <element name="SupplyDateOrPeriod" type="me:SupplyDateOrPeriodType" minOccurs="0" maxOccurs="1">
+                <annotation>
+                    <documentation>XML element representing supply date or period is supply is different from the date when the invoice was issued.</documentation>
+                </annotation>
+            </element>
+            <element name="CorrectiveInv" type="me:CorrectiveInvType" minOccurs="0" maxOccurs="1">
+                <annotation>
+                    <documentation>XML element groups data for a corrective invoice.</documentation>
+                </annotation>
+            </element>
+            <element name="PayMethods" type="me:PayMethodsType" minOccurs="1" maxOccurs="1">
+                <annotation>
+                    <documentation>XML element representing list of payment methods.</documentation>
+                </annotation>
+                <unique name="UniquePayMethodType">
+                    <selector xpath=".//me:PayMethod"/>
+                    <field xpath="@Type"/>
+                </unique>
+            </element>
+            <element name="Currency" type="me:CurrencyType" minOccurs="0" maxOccurs="1">
+                <annotation>
+                    <documentation>XML element representing currency in which the amount on the invoice is expressed.</documentation>
+                </annotation>
+            </element>
+            <element name="Seller" type="me:SellerType" minOccurs="1" maxOccurs="1" >
+                <annotation>
+                    <documentation>XML element representing an seller of the goods.</documentation>
+                </annotation>
+            </element>
+            <element name="Buyer" type="me:BuyerType" minOccurs="0" maxOccurs="1" >
+                <annotation>
+                    <documentation>XML element representing a buyer of the goods.</documentation>
+                </annotation>
+            </element>
+            <element name="Items" type="me:InvoiceItemsType" minOccurs="1" maxOccurs="1" >
+                <annotation>
+                    <documentation>XML element representing list of invoice items (goods or services).</documentation>
+                </annotation>
+            </element>
+            <element name="SameTaxes" type="me:SameTaxesType" minOccurs="0" maxOccurs="1" >
+                <annotation>
+                    <documentation>XML element representing list of items of the same VAT rate.</documentation>
+                </annotation>
+            </element>
+            <element name="Fees" type="me:FeesType" minOccurs="0" maxOccurs="1" >
+                <annotation>
+                    <documentation>XML element representing list of fees.</documentation>
+                </annotation>
+                <unique name="UniqueFeesType">
+                    <selector xpath=".//me:Fee"/>
+                    <field xpath="@Type"/>
+                </unique>
+            </element>
+            <element name="SumInvIICRefs" type="me:SumInvIICRefsType" minOccurs="0" maxOccurs="1" >
+                <annotation>
+                    <documentation>XML element representing list of invoices IIC referenced by a summary invoice.</documentation>
+                </annotation>
+            </element>
+            <element name="BadDebtInv" type="me:BadDebtInvType" minOccurs="0" maxOccurs="1">
+                <annotation>
+                    <documentation>XML element groups data for an original invoice that will be declared bad debt invoice, as uncollectible.</documentation>
+                </annotation>
+            </element>
+        </all>
+        <attribute name="TypeOfInv" type="me:InvoiceSType" use="required" >
+            <annotation>
+                <documentation>Type of the item represents the type of invoice item, e.g. regular sale or a returned item.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IsSimplifiedInv" type="boolean" use="required" >
+            <annotation>
+                <documentation>If the invoice is simplified or not.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="TypeOfSelfIss" type="me:SelfIssSType" use="optional" >
+            <annotation>
+                <documentation>Type of self-issuing.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IssueDateTime" type="me:UTCSType" use="required" >
+            <annotation>
+                <documentation>Date and time of invoice created and issued at TCR.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="InvNum" type="me:InvNumSType" use="required" >
+            <annotation>
+                <documentation>Invoice number composed of invoice ordinal number, year of invoice issuance and code of TCR that issued invoice.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="InvOrdNum" type="me:IntSType" use="required" >
+            <annotation>
+                <documentation>Invoice ordinal number.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="TCRCode" type="me:RegistrationCodeSType" use="optional" >
+            <annotation>
+                <documentation>Code of the device that issued the invoice.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IsIssuerInVAT" type="boolean" use="required" >
+            <annotation>
+                <documentation>Is the taxpayer in the VAT system.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="TaxFreeAmt" type="me:DecimalNegSType" use="optional" >
+            <annotation>
+                <documentation>Amount on items that are tax free.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="MarkUpAmt" type="me:DecimalNegSType" use="optional" >
+            <annotation>
+                <documentation>Amount of the mark-up on the invoice.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="GoodsExAmt" type="me:DecimalNegSType" use="optional" >
+            <annotation>
+                <documentation>Total price of delivery of exported goods. There is no VAT on the invoice.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="TotPriceWoVAT" type="me:DecimalNegSType" use="required" >
+            <annotation>
+                <documentation>Total price of the invoice without VAT.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="TotVATAmt" type="me:DecimalNegSType" use="optional" >
+            <annotation>
+                <documentation>Total VAT amount.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="TotPrice" type="me:DecimalNegSType" use="required" >
+            <annotation>
+                <documentation>Total price of the invoice including VAT.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="OperatorCode" type="me:RegistrationCodeSType" use="required" >
+            <annotation>
+                <documentation>Reference to the operator who is operating on TCR. Value represents code of the operator.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="BusinUnitCode" type="me:RegistrationCodeSType" use="required" >
+            <annotation>
+                <documentation>Code (ID) of the business unit in which the invoice is issued.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="SoftCode" type="me:RegistrationCodeSType" use="required" >
+            <annotation>
+                <documentation>Number of the software used for invoice issuing.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IIC" type="me:Hex32SType" use="required" >
+            <annotation>
+                <documentation>Issuers’s invoice code which is generated by the cash register of the issuer of the invoice. This is a unique code for every invoice. </documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IICSignature" type="me:Hex512SType" use="required" >
+            <annotation>
+                <documentation>Signed issuer’s invoice code concatenated parameters.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IsReverseCharge" type="boolean" use="required" >
+            <annotation>
+                <documentation>Buyer is obliged to pay taxes by himself rather than issuer does it for him.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="PayDeadline" type="me:DateSType" use="optional" >
+            <annotation>
+                <documentation>Last day for a payment.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="ParagonBlockNum" type="me:String20SType" use="optional" >
+            <annotation>
+                <documentation>Number of paragon block.</documentation>
+            </annotation>
+        </attribute> 
+        <attribute name="TaxPeriod" type="me:TaxPeriodSType" use="optional" >
+            <annotation>
+                <documentation>Tax period for tax return.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="InvoiceItemType">
+        <all>
+            <element name="VS" type="me:VouchersSoldType" minOccurs="0" maxOccurs="1">
+                <annotation>
+                    <documentation>Element representing voucher data linked to this item.</documentation>
+                </annotation>
+            </element>
+        </all>
+        <attribute name="N" type="me:String50SType" use="required">
+            <annotation>
+                <documentation>Name of the item.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="C" type="me:String50SType" use="optional">
+            <annotation>
+                <documentation>Code of the item.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="U" type="me:String50SType" use="required">
+            <annotation>
+                <documentation>Unit of measure for specific item – piece, weight, length...</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Q" type="me:DoubleNegForQuantitySType" use="required">
+            <annotation>
+                <documentation>Amount or number (quantity) of items.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="UPB" type="me:Decimal4SType" use="required">
+            <annotation>
+                <documentation>Price of one item before VAT is applied (unit price without VAT).</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="UPA" type="me:Decimal4SType" use="required">
+            <annotation>
+                <documentation>Price of one item after VAT is applied (unit price with VAT). It is calculated as PA/Q.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="R" type="me:Decimal4SType" use="optional">
+            <annotation>
+                <documentation>Rebate percentage.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="RR" type="boolean" use="optional">
+            <annotation>
+                <documentation>Is rebate reducing base price?</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="PB" type="me:Decimal4NegSType" use="required">
+            <annotation>
+                <documentation>Price before VAT for the items in this group of items. This is not the unit price of the item. It is the unit price multiplied by the quantity of items.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="VR" type="me:Decimal4SType" use="optional">
+            <annotation>
+                <documentation>Rate of value added tax expressed as percentage.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="VA" type="me:Decimal4NegSType" use="optional">
+            <annotation>
+                <documentation>Amount of value added tax for the items in this group of items.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IN" type="boolean" use="optional" >
+            <annotation>
+                <documentation>If true, the item is investment.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="PA" type="me:Decimal4NegSType" use="required">
+            <annotation>
+                <documentation>Price after applying VAT for the items in this group of items.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="EX" type="me:ExemptFromVATSType" use="optional">
+            <annotation>
+                <documentation>Exempt from VAT.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="InvoiceItemsType">
+        <sequence>
+            <element name="I" type="me:InvoiceItemType" minOccurs="1" maxOccurs="1000">
+                <annotation>
+                    <documentation>Element representing a single item on the invoice.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="SupplyDateOrPeriodType">
+        <attribute name="Start" type="me:DateSType" use="required">
+            <annotation>
+                <documentation>Start date.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="End" type="me:DateSType" use="required">
+            <annotation>
+                <documentation>End date.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="CorrectiveInvType">
+        <attribute name="IICRef" type="me:Hex32SType" use="required">
+            <annotation>
+                <documentation>IIC reference on the original invoice.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IssueDateTime" type="me:UTCSType" use="required">
+            <annotation>
+                <documentation>Date and time the original invoice is created and issued at TCR</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Type" type="me:CorrectiveInvTypeSType" use="required">
+            <annotation>
+                <documentation>Type of the corrective invoice.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="CurrencyType">
+        <attribute name="Code" type="me:CurrencyCodeSType" use="required">
+            <annotation>
+                <documentation>Currency code from the ISO 4217 standard.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="ExRate" type="me:DoubleSType" use="required">
+            <annotation>
+                <documentation>Exchange rate applied to calculate the equivalent amount of foreign currency for the total amount expressed in LEK. Exchange rate express equivalent amount of LEK for 1 unit of foreign currency.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="SellerType">
+        <attribute name="IDType" type="me:IDTypeSType" use="required">
+            <annotation>
+                <documentation>Seller's identification number type.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IDNum" type="me:String20SType" use="required">
+            <annotation>
+                <documentation>Seller's identification number.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Name" type="me:String100SType" use="required">
+            <annotation>
+                <documentation>Seller's name.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Address" type="me:String200SType" use="optional">
+            <annotation>
+                <documentation>Seller's address.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Town" type="me:String100SType" use="optional">
+            <annotation>
+                <documentation>Seller's town.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Country" type="me:CountryCodeSType" use="optional">
+            <annotation>
+                <documentation>Seller's country.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="BuyerType">
+        <attribute name="IDType" type="me:IDTypeSType" use="optional">
+            <annotation>
+                <documentation>Buyer's identification number type.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IDNum" type="me:String20SType" use="optional">
+            <annotation>
+                <documentation>Buyer's identification number.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Name" type="me:String100SType" use="optional">
+            <annotation>
+                <documentation>Buyer's name.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Address" type="me:String200SType" use="optional">
+            <annotation>
+                <documentation>Buyer's address.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Town" type="me:String100SType" use="optional">
+            <annotation>
+                <documentation>Buyer's town.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Country" type="me:CountryCodeSType" use="optional">
+            <annotation>
+                <documentation>Buyer's country.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="PayMethodsType">
+        <sequence>
+            <element name="PayMethod" type="me:PayMethodType" minOccurs="1" maxOccurs="10">
+                <annotation>
+                    <documentation>XML element representing one payment method.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="SameTaxesType">
+        <sequence>
+            <element name="SameTax" type="me:SameTaxType" minOccurs="1" maxOccurs="20">
+                <annotation>
+                    <documentation>Element representing an item of list of same tax items.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="FeesType">
+        <sequence>
+            <element name="Fee" type="me:FeeType" minOccurs="1" maxOccurs="20">
+                <annotation>
+                    <documentation>Element representing an item of list of fee items.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="SumInvIICRefsType">
+        <sequence>
+            <element name="SumInvIICRef" type="me:SumInvIICRefType" minOccurs="1" maxOccurs="1000">
+                <annotation>
+                    <documentation>XML element representing a single IIC reference on the list of SumInvIICRefs.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="PayMethodType">
+        <sequence>
+            <element name="Vouchers" type="me:VouchersType" minOccurs="0" maxOccurs="1">
+                <annotation>
+                    <documentation>XML element representing list of voucher numbers if the payment method is voucher.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+        <attribute name="Type" type="me:PaymentMethodTypeSType" use="required">
+            <annotation>
+                <documentation>Type of the payment method.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Amt" type="me:DecimalNegSType" use="required">
+            <annotation>
+                <documentation>Amount payed by payment method in the country currency.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="CompCard" type="me:String50SType" use="optional">
+            <annotation>
+                <documentation>Company card number if the payment method is company cards.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="VouchersType">
+        <sequence>
+            <element name="Voucher" type="me:VoucherType" minOccurs="1" maxOccurs="20">
+                <annotation>
+                    <documentation>XML element representing a single voucher number.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="VoucherType">
+        <attribute name="Num" type="me:VoucherNumSType" use="required">
+            <annotation>
+                <documentation>XML element representing single voucher serial number.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="SameTaxType">
+        <attribute name="NumOfItems" type="me:IntSType" use="required">
+            <annotation>
+                <documentation>Number of items.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="PriceBefVAT" type="me:DecimalNegSType" use="required">
+            <annotation>
+                <documentation>Price before VAT.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="VATRate" type="me:DecimalNegSType" use="optional">
+            <annotation>
+                <documentation>VAT rate.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="ExemptFromVAT" type="me:ExemptFromVATSType" use="optional">
+            <annotation>
+                <documentation>Exempt from VAT.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="VATAmt" type="me:DecimalNegSType" use="optional">
+            <annotation>
+                <documentation>VAT amount.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="FeeType">
+        <attribute name="Type" type="me:FeeTypeSType" use="required">
+            <annotation>
+                <documentation>Type of the fee.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Amt" type="me:DecimalNegSType" use="required">
+            <annotation>
+                <documentation>The decimal amount of the fee in the country currency.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="SumInvIICRefType">
+        <attribute name="IIC" type="me:Hex32SType" use="required">
+            <annotation>
+                <documentation>IIC of the invoice that is referenced by the summary invoice.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IssueDateTime" type="me:UTCSType" use="required">
+            <annotation>
+                <documentation>Date and time the invoice referenced by the summary invoice is created and issued at TCR.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="CashDepositType">
+        <attribute name="ChangeDateTime" type="me:UTCSType" use="required" >
+            <annotation>
+                <documentation>Element representing date and time when the deposit of cash was checked in the cash register.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="Operation" type="me:CashDepositOperationSType" use="required">
+            <annotation>
+                <documentation>This is an XML element that represents the operation made at the cash register.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="CashAmt" type="me:DecimalSType" use="required" >
+            <annotation>
+                <documentation>Element representing the amount of cash found in the cash register after the operation.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="TCRCode" type="me:RegistrationCodeSType" use="required" >
+            <annotation>
+                <documentation>Element representing the unique code of the TCR in question.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IssuerTIN" type="me:TINSType" use="required">
+            <annotation>
+                <documentation>Element representing issuer's TIN (tax number).</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="TCRType">
+        <simpleContent>
+            <extension base="string">
+                <attribute name="IssuerTIN" type="me:TINSType" use="required">
+                    <annotation>
+                        <documentation>Issuer's PIB/JMB.</documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="BusinUnitCode" type="me:RegistrationCodeSType" use="required">
+                    <annotation>
+                        <documentation>Code of the business unit in which the invoice is issued.</documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="TCRIntID" type="me:String50SType" use="required">
+                    <annotation>
+                        <documentation>Element representing the internal identification of the TCR.</documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="SoftCode" type="me:RegistrationCodeSType" use="optional">
+                    <annotation>
+                        <documentation>Code of the software used for invoice issuing.</documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="MaintainerCode" type="me:RegistrationCodeSType" use="optional">
+                    <annotation>
+                        <documentation>Code of the maintainer of the software used for invoice issuing.</documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="ValidFrom" type="me:DateSType" use="optional">
+                    <annotation>
+                        <documentation>Date from which the TCR will be used.</documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="ValidTo" type="me:DateSType" use="optional">
+                    <annotation>
+                        <documentation>Date until the TCR will be used.</documentation>
+                    </annotation>
+                </attribute>
+                <attribute name="Type" type="me:TCRSType" use="optional">
+                    <annotation>
+                        <documentation>TCR type.</documentation>
+                    </annotation>
+                </attribute>
+            </extension>
+        </simpleContent>
+    </complexType>
+    <complexType name="VouchersSoldType">
+        <all>
+            <element name="VD" type="me:VoucherSoldDataType" minOccurs="1" maxOccurs="1">
+                <annotation>
+                    <documentation>XML element representing a voucher data.</documentation>
+                </annotation>
+            </element>
+            <element name="VN" type="me:VouchersSoldNumType" minOccurs="1" maxOccurs="1">
+                <annotation>
+                    <documentation>XML element representing a voucher numbers.</documentation>
+                </annotation>
+            </element>
+        </all>
+    </complexType>
+    <complexType name="VoucherSoldDataType">
+        <attribute name="D" type="me:DateSType" use="required">
+            <annotation>
+                <documentation>Expiration date of the voucher.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="N" type="me:DecimalSType" use="required">
+            <annotation>
+                <documentation>Nominal voucher value.</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    <complexType name="VouchersSoldNumType">
+        <sequence>
+            <element name="V" type="me:VoucherType" minOccurs="1" maxOccurs="1000">
+                <annotation>
+                    <documentation>XML element representing a single voucher number sold.</documentation>
+                </annotation>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="BadDebtInvType">
+        <attribute name="IICRef" type="me:Hex32SType" use="required">
+            <annotation>
+                <documentation>IIC reference on the original invoice.</documentation>
+            </annotation>
+        </attribute>
+        <attribute name="IssueDateTime" type="me:UTCSType" use="required">
+            <annotation>
+                <documentation>Date and time the original invoice is created and issued at TCR</documentation>
+            </annotation>
+        </attribute>
+    </complexType>
+    
+    <simpleType name="InvoiceSType">
+        <annotation>
+            <documentation>Invoice type.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="CASH">
+                <annotation>
+                    <documentation>Cash invoice.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="NONCASH">
+                <annotation>
+                    <documentation>Non-cash invoice.</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="TCRSType">
+        <annotation>
+            <documentation>TCR type.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="REGULAR">
+                <annotation>
+                    <documentation>Regular TCR.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="VENDING">
+                <annotation>
+                    <documentation>Self-vending machine.</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="DecimalSType">
+        <annotation>
+            <documentation>Decimal number with two numbers after decimal point.</documentation>
+        </annotation>
+        <restriction base="decimal">
+            <pattern value="([1-9][0-9]*|0)\.[0-9]{2}|0"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="Decimal4SType">
+        <annotation>
+            <documentation>Decimal number with two to four numbers after decimal point.</documentation>
+        </annotation>
+        <restriction base="decimal">
+            <pattern value="([1-9][0-9]*|0)\.[0-9]{2,4}|0"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="SelfIssSType">
+        <annotation>
+            <documentation>Self issuing type.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="AGREEMENT">
+                <annotation>
+                    <documentation>The previous agreement between the parties.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="DOMESTIC">
+                <annotation>
+                    <documentation>Buying from domestic farmers.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="ABROAD">
+                <annotation>
+                    <documentation>Buying services from abroad.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="SELF">
+                <annotation>
+                    <documentation>Self-consumption.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="OTHER">
+                <annotation>
+                    <documentation>Other</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="PaymentMethodTypeSType">
+        <annotation>
+            <documentation>Payment method type.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="BANKNOTE">
+                <annotation>
+                    <documentation>Banknotes and coins</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="CARD">
+                <annotation>
+                    <documentation>Credit and debit card issued to the physical person</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="BUSINESS-CARD">
+                <annotation>
+                    <documentation>Credit and debit card issued to the taxpayer</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="SVOUCHER">
+                <annotation>
+                    <documentation>Single-purpose voucher</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="COMPANY">
+                <annotation>
+                    <documentation>Seller's company cards, gift cards and similar prepaid cards</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="ORDER">
+                <annotation>
+                    <documentation>Invoice not yet paid. It will be paid by summary invoice.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="ADVANCE"> 
+                <annotation> 
+                    <documentation>Invoice is paid in advance</documentation> 
+                </annotation> 
+            </enumeration> 
+            <enumeration value="ACCOUNT">
+                <annotation>
+                    <documentation>Transaction account</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="FACTORING">
+                <annotation>
+                    <documentation>Factoring</documentation>
+                </annotation>
+            </enumeration>
+            
+            <enumeration value="OTHER">
+                <annotation>
+                    <documentation>Other cashless payments</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="OTHER-CASH">
+                <annotation>
+                    <documentation>Other cash payments</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="UTCSType">
+        <annotation>
+            <documentation>Date and time represented as UTC time with ISO 8601 format.</documentation>
+        </annotation>
+        <restriction base="dateTime">
+            <pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}([+-][0-9]{2}:[0-9]{2}|Z)"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="DateSType">
+        <annotation>
+            <documentation>Date expressed as year-month-day.</documentation>
+        </annotation>
+        <restriction base="date">
+            <pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="UUIDSType">
+        <annotation>
+            <documentation>UUID constructed according to the RFC4122 (https://tools.ietf.org/html/rfc4122).</documentation>
+        </annotation>
+        <restriction base="string">
+            <pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="VoucherNumSType">
+        <annotation>
+            <documentation>Voucher serial number.</documentation>
+        </annotation>
+        <restriction base="string">
+            <pattern value="[1-9][0-9]{0,7}-[0-9]{4}-[0-9]{8}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="TINSType">
+        <annotation>
+            <documentation>PIB or JMB numebr.</documentation>
+        </annotation>
+        <restriction base="string">
+            <pattern value="[0-9]{13}|[0-9]{8}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="InvNumSType">
+        <annotation>
+            <documentation>Invoice number composed of Business unit code, Invoice ordinal number, year of invoice issuing and TCR code.</documentation>
+        </annotation>
+        <restriction base="string">
+            <pattern value="[a-z]{2}[0-9]{3}[a-z]{2}[0-9]{3}\/[1-9]{1}[0-9]{0,14}\/[0-9]{4}\/[a-z]{2}[0-9]{3}[a-z]{2}[0-9]{3}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="String200SType">
+        <annotation>
+            <documentation>String of up to 200 characters.</documentation>
+        </annotation>
+        <restriction base="string">
+            <minLength value="1"/>
+            <maxLength value="200"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="String100SType">
+        <annotation>
+            <documentation>String of up to 100 characters.</documentation>
+        </annotation>
+        <restriction base="string">
+            <minLength value="1"/>
+            <maxLength value="100"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="String50SType">
+        <annotation>
+            <documentation>String of up to 50 characters.</documentation>
+        </annotation>
+        <restriction base="string">
+            <minLength value="1"/>
+            <maxLength value="50"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="String20SType">
+        <annotation>
+            <documentation>String of up to 20 characters.</documentation>
+        </annotation>
+        <restriction base="string">
+            <minLength value="1"/>
+            <maxLength value="20"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="Hex32SType">
+        <annotation>
+            <documentation>Hexadecimal code made of 32 characters.</documentation>
+        </annotation>
+        <restriction base="string">
+            <pattern value="[0-9a-fA-F]{32}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="Hex512SType">
+        <annotation>
+            <documentation>Hexadecimal code made of 512 characters.</documentation>
+        </annotation>
+        <restriction base="string">
+            <pattern value="[0-9a-fA-F]{512}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="DecimalNegSType">
+        <annotation>
+            <documentation>Decimal number that can be written as negative number.</documentation>
+        </annotation>
+        <restriction base="decimal">
+            <pattern value="-?([1-9][0-9]*|0)\.[0-9]{2}|0"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="Decimal4NegSType">
+        <annotation>
+            <documentation>Decimal number that can be written as negative number (2-4 decimals).</documentation>
+        </annotation>
+        <restriction base="decimal">
+            <pattern value="-?([1-9][0-9]*|0)\.[0-9]{2,4}|0"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="RegistrationCodeSType">
+        <annotation>
+            <documentation>Registration code in two letters - three numbers - two letters - three number format.</documentation>
+        </annotation>
+        <restriction base="string">
+            <pattern value="[a-z]{2}[0-9]{3}[a-z]{2}[0-9]{3}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="DoubleNegForQuantitySType">
+        <annotation>
+            <documentation>Double number for quantity fields that can be written as negative number.</documentation>
+        </annotation>
+        <restriction base="double">
+            <pattern value="-?([1-9][0-9]*|0)(\.[0-9]{1,3})?"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="DoubleSType">
+        <annotation>
+            <documentation>Positive double.</documentation>
+        </annotation>
+        <restriction base="double">
+            <minExclusive value="0"></minExclusive>
+        </restriction>
+    </simpleType>
+    <simpleType name="IntSType">
+        <annotation>
+            <documentation>Positive integer.</documentation>
+        </annotation>
+        <restriction base="int">
+            <minExclusive value="0"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="TaxPeriodSType">
+        <annotation>
+            <documentation>Tax period composed of month and year for which it is applied, in the format MM/YYYY.</documentation>
+        </annotation>
+        <restriction base="string">
+            <pattern value="((0[1-9])|(1[0-2]))\/(\d{4})"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="CashDepositOperationSType">
+        <annotation>
+            <documentation>Cash deposit operation types.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="INITIAL">
+                <annotation>
+                    <documentation>Initial deposit in the TCR.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="WITHDRAW">
+                <annotation>
+                    <documentation>Amount of cash withdrawn from the TCR.</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="IDTypeSType">
+        <annotation>
+            <documentation>Identification number types.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="TIN">
+                <annotation>
+                    <documentation>JMB/PIB number.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="ID">
+                <annotation>
+                    <documentation>Personal ID number.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="PASS">
+                <annotation>
+                    <documentation>Passport number.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="VAT">
+                <annotation>
+                    <documentation>VAT number.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="TAX">
+                <annotation>
+                    <documentation>TAX number.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="SOC">
+                <annotation>
+                    <documentation>Social security number.</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="FeeTypeSType">
+        <annotation>
+            <documentation>Fee types.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="PACK">
+                <annotation>
+                    <documentation>Packaging fee.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="BOTTLE">
+                <annotation>
+                    <documentation>Fee for the return of glass bottles.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="COMMISSION">
+                <annotation>
+                    <documentation>Commission for currency exchange activities.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="OTHER">
+                <annotation>
+                    <documentation>Other fees that are not listed here.</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="CorrectiveInvTypeSType">
+        <annotation>
+            <documentation>Types of the corrective invoice.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="CORRECTIVE">
+                <annotation>
+                    <documentation>Corrective invoice.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="DEBIT">
+                <annotation>
+                    <documentation>Debit note.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="CREDIT">
+                <annotation>
+                    <documentation>Credit note.</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="ExemptFromVATSType">
+        <annotation>
+            <documentation>Exempt from VAT types.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="VAT_CL17">
+                <annotation>
+                    <documentation>Place of service traffic.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="VAT_CL20">
+                <annotation>
+                    <documentation>Tax base and correction of the tax base.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="VAT_CL26">
+                <annotation>
+                    <documentation>Exemptions from the public interest.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="VAT_CL27">
+                <annotation>
+                    <documentation>Other exemptions.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="VAT_CL28">
+                <annotation>
+                    <documentation>Exemptions on imports of products.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="VAT_CL29">
+                <annotation>
+                    <documentation>Exemptions for temporary importation of products.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="VAT_CL30">
+                <annotation>
+                    <documentation>Special exemptions.</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="SubseqDelivTypeSType">
+        <annotation>
+            <documentation>Type of subsequent delivery if message is delivered after issuance.</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="NOINTERNET">
+                <annotation>
+                    <documentation>When TCR operates in the area where there is no Internet available.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="BOUNDBOOK">
+                <annotation>
+                    <documentation>When TCR is not working and message cannot be created with TCR.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="SERVICE">
+                <annotation>
+                    <documentation>When there is an issue with the fiscalization service that blocks fiscalization.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="TECHNICALERROR">
+                <annotation>
+                    <documentation>When there is a temporary technical error at TCR side that prevents successful fiscalization.</documentation>
+                </annotation>
+            </enumeration>
+            <enumeration value="BUSINESSNEEDS">
+                <annotation>
+                    <documentation>When there is a subsequent sending conditioned by the way of doing business that prevents successful fiscalization.</documentation>
+                </annotation>
+            </enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="CountryCodeSType">
+        <annotation>
+            <documentation>Country codes from ISO 3166-1 alpha3 standard</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="ABW"><annotation><documentation>Aruba</documentation></annotation></enumeration>
+            <enumeration value="AFG"><annotation><documentation>Afghanistan</documentation></annotation></enumeration>
+            <enumeration value="AGO"><annotation><documentation>Angola</documentation></annotation></enumeration>
+            <enumeration value="AIA"><annotation><documentation>Anguilla</documentation></annotation></enumeration>
+            <enumeration value="ALA"><annotation><documentation>Aland Islands</documentation></annotation></enumeration>
+            <enumeration value="ALB"><annotation><documentation>Albania</documentation></annotation></enumeration>
+            <enumeration value="AND"><annotation><documentation>Andorra</documentation></annotation></enumeration>
+            <enumeration value="ARE"><annotation><documentation>United Arab Emirates</documentation></annotation></enumeration>
+            <enumeration value="ARG"><annotation><documentation>Argentina</documentation></annotation></enumeration>
+            <enumeration value="ARM"><annotation><documentation>Armenia</documentation></annotation></enumeration>
+            <enumeration value="ASM"><annotation><documentation>American Samoa</documentation></annotation></enumeration>
+            <enumeration value="ATA"><annotation><documentation>Antarctica</documentation></annotation></enumeration>
+            <enumeration value="ATF"><annotation><documentation>French Southern Territories</documentation></annotation></enumeration>
+            <enumeration value="ATG"><annotation><documentation>Antigua and Barbuda</documentation></annotation></enumeration>
+            <enumeration value="AUS"><annotation><documentation>Australia</documentation></annotation></enumeration>
+            <enumeration value="AUT"><annotation><documentation>Austria</documentation></annotation></enumeration>
+            <enumeration value="AZE"><annotation><documentation>Azerbaijan</documentation></annotation></enumeration>
+            <enumeration value="BDI"><annotation><documentation>Burundi</documentation></annotation></enumeration>
+            <enumeration value="BEL"><annotation><documentation>Belgium</documentation></annotation></enumeration>
+            <enumeration value="BEN"><annotation><documentation>Benin</documentation></annotation></enumeration>
+            <enumeration value="BES"><annotation><documentation>Bonaire, Sint Eustatius and Saba</documentation></annotation></enumeration>
+            <enumeration value="BFA"><annotation><documentation>Burkina Faso</documentation></annotation></enumeration>
+            <enumeration value="BGD"><annotation><documentation>Bangladesh</documentation></annotation></enumeration>
+            <enumeration value="BGR"><annotation><documentation>Bulgaria</documentation></annotation></enumeration>
+            <enumeration value="BHR"><annotation><documentation>Bahrain</documentation></annotation></enumeration>
+            <enumeration value="BHS"><annotation><documentation>Bahamas</documentation></annotation></enumeration>
+            <enumeration value="BIH"><annotation><documentation>Bosnia and Herzegovina</documentation></annotation></enumeration>
+            <enumeration value="BLM"><annotation><documentation>Saint Barthelemy</documentation></annotation></enumeration>
+            <enumeration value="BLR"><annotation><documentation>Belarus</documentation></annotation></enumeration>
+            <enumeration value="BLZ"><annotation><documentation>Belize</documentation></annotation></enumeration>
+            <enumeration value="BMU"><annotation><documentation>Bermuda</documentation></annotation></enumeration>
+            <enumeration value="BOL"><annotation><documentation>Bolivia (Plurinational State of)</documentation></annotation></enumeration>
+            <enumeration value="BRA"><annotation><documentation>Brazil</documentation></annotation></enumeration>
+            <enumeration value="BRB"><annotation><documentation>Barbados</documentation></annotation></enumeration>
+            <enumeration value="BRN"><annotation><documentation>Brunei Darussalam</documentation></annotation></enumeration>
+            <enumeration value="BTN"><annotation><documentation>Bhutan</documentation></annotation></enumeration>
+            <enumeration value="BVT"><annotation><documentation>Bouvet Island</documentation></annotation></enumeration>
+            <enumeration value="BWA"><annotation><documentation>Botswana</documentation></annotation></enumeration>
+            <enumeration value="CAF"><annotation><documentation>Central African Republic</documentation></annotation></enumeration>
+            <enumeration value="CAN"><annotation><documentation>Canada</documentation></annotation></enumeration>
+            <enumeration value="CCK"><annotation><documentation>Cocos (Keeling) Islands</documentation></annotation></enumeration>
+            <enumeration value="CHE"><annotation><documentation>Switzerland</documentation></annotation></enumeration>
+            <enumeration value="CHL"><annotation><documentation>Chile</documentation></annotation></enumeration>
+            <enumeration value="CHN"><annotation><documentation>China</documentation></annotation></enumeration>
+            <enumeration value="CIV"><annotation><documentation>Cote d'Ivoire</documentation></annotation></enumeration>
+            <enumeration value="CMR"><annotation><documentation>Cameroon</documentation></annotation></enumeration>
+            <enumeration value="COD"><annotation><documentation>Congo, Democratic Republic of the</documentation></annotation></enumeration>
+            <enumeration value="COG"><annotation><documentation>Congo</documentation></annotation></enumeration>
+            <enumeration value="COK"><annotation><documentation>Cook Islands</documentation></annotation></enumeration>
+            <enumeration value="COL"><annotation><documentation>Colombia</documentation></annotation></enumeration>
+            <enumeration value="COM"><annotation><documentation>Comoros</documentation></annotation></enumeration>
+            <enumeration value="CPV"><annotation><documentation>Cabo Verde</documentation></annotation></enumeration>
+            <enumeration value="CRI"><annotation><documentation>Costa Rica</documentation></annotation></enumeration>
+            <enumeration value="CUB"><annotation><documentation>Cuba</documentation></annotation></enumeration>
+            <enumeration value="CUW"><annotation><documentation>Curacao</documentation></annotation></enumeration>
+            <enumeration value="CXR"><annotation><documentation>Christmas Island</documentation></annotation></enumeration>
+            <enumeration value="CYM"><annotation><documentation>Cayman Islands</documentation></annotation></enumeration>
+            <enumeration value="CYP"><annotation><documentation>Cyprus</documentation></annotation></enumeration>
+            <enumeration value="CZE"><annotation><documentation>Czechia</documentation></annotation></enumeration>
+            <enumeration value="DEU"><annotation><documentation>Germany</documentation></annotation></enumeration>
+            <enumeration value="DJI"><annotation><documentation>Djibouti</documentation></annotation></enumeration>
+            <enumeration value="DMA"><annotation><documentation>Dominica</documentation></annotation></enumeration>
+            <enumeration value="DNK"><annotation><documentation>Denmark</documentation></annotation></enumeration>
+            <enumeration value="DOM"><annotation><documentation>Dominican Republic</documentation></annotation></enumeration>
+            <enumeration value="DZA"><annotation><documentation>Algeria</documentation></annotation></enumeration>
+            <enumeration value="ECU"><annotation><documentation>Ecuador</documentation></annotation></enumeration>
+            <enumeration value="EGY"><annotation><documentation>Egypt</documentation></annotation></enumeration>
+            <enumeration value="ERI"><annotation><documentation>Eritrea</documentation></annotation></enumeration>
+            <enumeration value="ESH"><annotation><documentation>Western Sahara</documentation></annotation></enumeration>
+            <enumeration value="ESP"><annotation><documentation>Spain</documentation></annotation></enumeration>
+            <enumeration value="EST"><annotation><documentation>Estonia</documentation></annotation></enumeration>
+            <enumeration value="ETH"><annotation><documentation>Ethiopia</documentation></annotation></enumeration>
+            <enumeration value="FIN"><annotation><documentation>Finland</documentation></annotation></enumeration>
+            <enumeration value="FJI"><annotation><documentation>Fiji</documentation></annotation></enumeration>
+            <enumeration value="FLK"><annotation><documentation>Falkland Islands (Malvinas)</documentation></annotation></enumeration>
+            <enumeration value="FRA"><annotation><documentation>France</documentation></annotation></enumeration>
+            <enumeration value="FRO"><annotation><documentation>Faroe Islands</documentation></annotation></enumeration>
+            <enumeration value="FSM"><annotation><documentation>Micronesia (Federated States of)</documentation></annotation></enumeration>
+            <enumeration value="GAB"><annotation><documentation>Gabon</documentation></annotation></enumeration>
+            <enumeration value="GBR"><annotation><documentation>United Kingdom of Great Britain and Northern Ireland</documentation></annotation></enumeration>
+            <enumeration value="GEO"><annotation><documentation>Georgia</documentation></annotation></enumeration>
+            <enumeration value="GGY"><annotation><documentation>Guernsey</documentation></annotation></enumeration>
+            <enumeration value="GHA"><annotation><documentation>Ghana</documentation></annotation></enumeration>
+            <enumeration value="GIB"><annotation><documentation>Gibraltar</documentation></annotation></enumeration>
+            <enumeration value="GIN"><annotation><documentation>Guinea</documentation></annotation></enumeration>
+            <enumeration value="GLP"><annotation><documentation>Guadeloupe</documentation></annotation></enumeration>
+            <enumeration value="GMB"><annotation><documentation>Gambia</documentation></annotation></enumeration>
+            <enumeration value="GNB"><annotation><documentation>Guinea-Bissau</documentation></annotation></enumeration>
+            <enumeration value="GNQ"><annotation><documentation>Equatorial Guinea</documentation></annotation></enumeration>
+            <enumeration value="GRC"><annotation><documentation>Greece</documentation></annotation></enumeration>
+            <enumeration value="GRD"><annotation><documentation>Grenada</documentation></annotation></enumeration>
+            <enumeration value="GRL"><annotation><documentation>Greenland</documentation></annotation></enumeration>
+            <enumeration value="GTM"><annotation><documentation>Guatemala</documentation></annotation></enumeration>
+            <enumeration value="GUF"><annotation><documentation>French Guiana</documentation></annotation></enumeration>
+            <enumeration value="GUM"><annotation><documentation>Guam</documentation></annotation></enumeration>
+            <enumeration value="GUY"><annotation><documentation>Guyana</documentation></annotation></enumeration>
+            <enumeration value="HKG"><annotation><documentation>Hong Kong</documentation></annotation></enumeration>
+            <enumeration value="HMD"><annotation><documentation>Heard Island and McDonald Islands</documentation></annotation></enumeration>
+            <enumeration value="HND"><annotation><documentation>Honduras</documentation></annotation></enumeration>
+            <enumeration value="HRV"><annotation><documentation>Croatia</documentation></annotation></enumeration>
+            <enumeration value="HTI"><annotation><documentation>Haiti</documentation></annotation></enumeration>
+            <enumeration value="HUN"><annotation><documentation>Hungary</documentation></annotation></enumeration>
+            <enumeration value="IDN"><annotation><documentation>Indonesia</documentation></annotation></enumeration>
+            <enumeration value="IMN"><annotation><documentation>Isle of Man</documentation></annotation></enumeration>
+            <enumeration value="IND"><annotation><documentation>India</documentation></annotation></enumeration>
+            <enumeration value="IOT"><annotation><documentation>British Indian Ocean Territory</documentation></annotation></enumeration>
+            <enumeration value="IRL"><annotation><documentation>Ireland</documentation></annotation></enumeration>
+            <enumeration value="IRN"><annotation><documentation>Iran (Islamic Republic of)</documentation></annotation></enumeration>
+            <enumeration value="IRQ"><annotation><documentation>Iraq</documentation></annotation></enumeration>
+            <enumeration value="ISL"><annotation><documentation>Iceland</documentation></annotation></enumeration>
+            <enumeration value="ISR"><annotation><documentation>Israel</documentation></annotation></enumeration>
+            <enumeration value="ITA"><annotation><documentation>Italy</documentation></annotation></enumeration>
+            <enumeration value="JAM"><annotation><documentation>Jamaica</documentation></annotation></enumeration>
+            <enumeration value="JEY"><annotation><documentation>Jersey</documentation></annotation></enumeration>
+            <enumeration value="JOR"><annotation><documentation>Jordan</documentation></annotation></enumeration>
+            <enumeration value="JPN"><annotation><documentation>Japan</documentation></annotation></enumeration>
+            <enumeration value="KAZ"><annotation><documentation>Kazakhstan</documentation></annotation></enumeration>
+            <enumeration value="KEN"><annotation><documentation>Kenya</documentation></annotation></enumeration>
+            <enumeration value="KGZ"><annotation><documentation>Kyrgyzstan</documentation></annotation></enumeration>
+            <enumeration value="KHM"><annotation><documentation>Cambodia</documentation></annotation></enumeration>
+            <enumeration value="KIR"><annotation><documentation>Kiribati</documentation></annotation></enumeration>
+            <enumeration value="KNA"><annotation><documentation>Saint Kitts and Nevis</documentation></annotation></enumeration>
+            <enumeration value="KOR"><annotation><documentation>Korea, Republic of</documentation></annotation></enumeration>
+            <enumeration value="KWT"><annotation><documentation>Kuwait</documentation></annotation></enumeration>
+            <enumeration value="LAO"><annotation><documentation>Lao People's Democratic Republic</documentation></annotation></enumeration>
+            <enumeration value="LBN"><annotation><documentation>Lebanon</documentation></annotation></enumeration>
+            <enumeration value="LBR"><annotation><documentation>Liberia</documentation></annotation></enumeration>
+            <enumeration value="LBY"><annotation><documentation>Libya</documentation></annotation></enumeration>
+            <enumeration value="LCA"><annotation><documentation>Saint Lucia</documentation></annotation></enumeration>
+            <enumeration value="LIE"><annotation><documentation>Liechtenstein</documentation></annotation></enumeration>
+            <enumeration value="LKA"><annotation><documentation>Sri Lanka</documentation></annotation></enumeration>
+            <enumeration value="LSO"><annotation><documentation>Lesotho</documentation></annotation></enumeration>
+            <enumeration value="LTU"><annotation><documentation>Lithuania</documentation></annotation></enumeration>
+            <enumeration value="LUX"><annotation><documentation>Luxembourg</documentation></annotation></enumeration>
+            <enumeration value="LVA"><annotation><documentation>Latvia</documentation></annotation></enumeration>
+            <enumeration value="MAC"><annotation><documentation>Macao</documentation></annotation></enumeration>
+            <enumeration value="MAF"><annotation><documentation>Saint Martin (French part)</documentation></annotation></enumeration>
+            <enumeration value="MAR"><annotation><documentation>Morocco</documentation></annotation></enumeration>
+            <enumeration value="MCO"><annotation><documentation>Monaco</documentation></annotation></enumeration>
+            <enumeration value="MDA"><annotation><documentation>Moldova, Republic of</documentation></annotation></enumeration>
+            <enumeration value="MDG"><annotation><documentation>Madagascar</documentation></annotation></enumeration>
+            <enumeration value="MDV"><annotation><documentation>Maldives</documentation></annotation></enumeration>
+            <enumeration value="MEX"><annotation><documentation>Mexico</documentation></annotation></enumeration>
+            <enumeration value="MHL"><annotation><documentation>Marshall Islands</documentation></annotation></enumeration>
+            <enumeration value="MKD"><annotation><documentation>North Macedonia</documentation></annotation></enumeration>
+            <enumeration value="MLI"><annotation><documentation>Mali</documentation></annotation></enumeration>
+            <enumeration value="MLT"><annotation><documentation>Malta</documentation></annotation></enumeration>
+            <enumeration value="MMR"><annotation><documentation>Myanmar</documentation></annotation></enumeration>
+            <enumeration value="MNE"><annotation><documentation>Montenegro</documentation></annotation></enumeration>
+            <enumeration value="MNG"><annotation><documentation>Mongolia</documentation></annotation></enumeration>
+            <enumeration value="MNP"><annotation><documentation>Northern Mariana Islands</documentation></annotation></enumeration>
+            <enumeration value="MOZ"><annotation><documentation>Mozambique</documentation></annotation></enumeration>
+            <enumeration value="MRT"><annotation><documentation>Mauritania</documentation></annotation></enumeration>
+            <enumeration value="MSR"><annotation><documentation>Montserrat</documentation></annotation></enumeration>
+            <enumeration value="MTQ"><annotation><documentation>Martinique</documentation></annotation></enumeration>
+            <enumeration value="MUS"><annotation><documentation>Mauritius</documentation></annotation></enumeration>
+            <enumeration value="MWI"><annotation><documentation>Malawi</documentation></annotation></enumeration>
+            <enumeration value="MYS"><annotation><documentation>Malaysia</documentation></annotation></enumeration>
+            <enumeration value="MYT"><annotation><documentation>Mayotte</documentation></annotation></enumeration>
+            <enumeration value="NAM"><annotation><documentation>Namibia</documentation></annotation></enumeration>
+            <enumeration value="NCL"><annotation><documentation>New Caledonia</documentation></annotation></enumeration>
+            <enumeration value="NER"><annotation><documentation>Niger</documentation></annotation></enumeration>
+            <enumeration value="NFK"><annotation><documentation>Norfolk Island</documentation></annotation></enumeration>
+            <enumeration value="NGA"><annotation><documentation>Nigeria</documentation></annotation></enumeration>
+            <enumeration value="NIC"><annotation><documentation>Nicaragua</documentation></annotation></enumeration>
+            <enumeration value="NIU"><annotation><documentation>Niue</documentation></annotation></enumeration>
+            <enumeration value="NLD"><annotation><documentation>Netherlands</documentation></annotation></enumeration>
+            <enumeration value="NOR"><annotation><documentation>Norway</documentation></annotation></enumeration>
+            <enumeration value="NPL"><annotation><documentation>Nepal</documentation></annotation></enumeration>
+            <enumeration value="NRU"><annotation><documentation>Nauru</documentation></annotation></enumeration>
+            <enumeration value="NZL"><annotation><documentation>New Zealand</documentation></annotation></enumeration>
+            <enumeration value="OMN"><annotation><documentation>Oman</documentation></annotation></enumeration>
+            <enumeration value="PAK"><annotation><documentation>Pakistan</documentation></annotation></enumeration>
+            <enumeration value="PAN"><annotation><documentation>Panama</documentation></annotation></enumeration>
+            <enumeration value="PCN"><annotation><documentation>Pitcairn</documentation></annotation></enumeration>
+            <enumeration value="PER"><annotation><documentation>Peru</documentation></annotation></enumeration>
+            <enumeration value="PHL"><annotation><documentation>Philippines</documentation></annotation></enumeration>
+            <enumeration value="PLW"><annotation><documentation>Palau</documentation></annotation></enumeration>
+            <enumeration value="PNG"><annotation><documentation>Papua New Guinea</documentation></annotation></enumeration>
+            <enumeration value="POL"><annotation><documentation>Poland</documentation></annotation></enumeration>
+            <enumeration value="PRI"><annotation><documentation>Puerto Rico</documentation></annotation></enumeration>
+            <enumeration value="PRK"><annotation><documentation>Korea (Democratic People's Republic of)</documentation></annotation></enumeration>
+            <enumeration value="PRT"><annotation><documentation>Portugal</documentation></annotation></enumeration>
+            <enumeration value="PRY"><annotation><documentation>Paraguay</documentation></annotation></enumeration>
+            <enumeration value="PSE"><annotation><documentation>Palestine, State of</documentation></annotation></enumeration>
+            <enumeration value="PYF"><annotation><documentation>French Polynesia</documentation></annotation></enumeration>
+            <enumeration value="QAT"><annotation><documentation>Qatar</documentation></annotation></enumeration>
+            <enumeration value="REU"><annotation><documentation>Reunion</documentation></annotation></enumeration>
+            <enumeration value="ROU"><annotation><documentation>Romania</documentation></annotation></enumeration>
+            <enumeration value="RUS"><annotation><documentation>Russian Federation</documentation></annotation></enumeration>
+            <enumeration value="RWA"><annotation><documentation>Rwanda</documentation></annotation></enumeration>
+            <enumeration value="SAU"><annotation><documentation>Saudi Arabia</documentation></annotation></enumeration>
+            <enumeration value="SDN"><annotation><documentation>Sudan</documentation></annotation></enumeration>
+            <enumeration value="SEN"><annotation><documentation>Senegal</documentation></annotation></enumeration>
+            <enumeration value="SGP"><annotation><documentation>Singapore</documentation></annotation></enumeration>
+            <enumeration value="SGS"><annotation><documentation>South Georgia and the South Sandwich Islands</documentation></annotation></enumeration>
+            <enumeration value="SHN"><annotation><documentation>Saint Helena, Ascension and Tristan da Cunha</documentation></annotation></enumeration>
+            <enumeration value="SJM"><annotation><documentation>Svalbard and Jan Mayen</documentation></annotation></enumeration>
+            <enumeration value="SLB"><annotation><documentation>Solomon Islands</documentation></annotation></enumeration>
+            <enumeration value="SLE"><annotation><documentation>Sierra Leone</documentation></annotation></enumeration>
+            <enumeration value="SLV"><annotation><documentation>El Salvador</documentation></annotation></enumeration>
+            <enumeration value="SMR"><annotation><documentation>San Marino</documentation></annotation></enumeration>
+            <enumeration value="SOM"><annotation><documentation>Somalia</documentation></annotation></enumeration>
+            <enumeration value="SPM"><annotation><documentation>Saint Pierre and Miquelon</documentation></annotation></enumeration>
+            <enumeration value="SRB"><annotation><documentation>Serbia</documentation></annotation></enumeration>
+            <enumeration value="SSD"><annotation><documentation>South Sudan</documentation></annotation></enumeration>
+            <enumeration value="STP"><annotation><documentation>Sao Tome and Principe</documentation></annotation></enumeration>
+            <enumeration value="SUR"><annotation><documentation>Suriname</documentation></annotation></enumeration>
+            <enumeration value="SVK"><annotation><documentation>Slovakia</documentation></annotation></enumeration>
+            <enumeration value="SVN"><annotation><documentation>Slovenia</documentation></annotation></enumeration>
+            <enumeration value="SWE"><annotation><documentation>Sweden</documentation></annotation></enumeration>
+            <enumeration value="SWZ"><annotation><documentation>Eswatini</documentation></annotation></enumeration>
+            <enumeration value="SXM"><annotation><documentation>Sint Maarten (Dutch part)</documentation></annotation></enumeration>
+            <enumeration value="SYC"><annotation><documentation>Seychelles</documentation></annotation></enumeration>
+            <enumeration value="SYR"><annotation><documentation>Syrian Arab Republic</documentation></annotation></enumeration>
+            <enumeration value="TCA"><annotation><documentation>Turks and Caicos Islands</documentation></annotation></enumeration>
+            <enumeration value="TCD"><annotation><documentation>Chad</documentation></annotation></enumeration>
+            <enumeration value="TGO"><annotation><documentation>Togo</documentation></annotation></enumeration>
+            <enumeration value="THA"><annotation><documentation>Thailand</documentation></annotation></enumeration>
+            <enumeration value="TJK"><annotation><documentation>Tajikistan</documentation></annotation></enumeration>
+            <enumeration value="TKL"><annotation><documentation>Tokelau</documentation></annotation></enumeration>
+            <enumeration value="TKM"><annotation><documentation>Turkmenistan</documentation></annotation></enumeration>
+            <enumeration value="TLS"><annotation><documentation>Timor-Leste</documentation></annotation></enumeration>
+            <enumeration value="TON"><annotation><documentation>Tonga</documentation></annotation></enumeration>
+            <enumeration value="TTO"><annotation><documentation>Trinidad and Tobago</documentation></annotation></enumeration>
+            <enumeration value="TUN"><annotation><documentation>Tunisia</documentation></annotation></enumeration>
+            <enumeration value="TUR"><annotation><documentation>Turkey</documentation></annotation></enumeration>
+            <enumeration value="TUV"><annotation><documentation>Tuvalu</documentation></annotation></enumeration>
+            <enumeration value="TWN"><annotation><documentation>Taiwan, Province of China</documentation></annotation></enumeration>
+            <enumeration value="TZA"><annotation><documentation>Tanzania, United Republic of</documentation></annotation></enumeration>
+            <enumeration value="UGA"><annotation><documentation>Uganda</documentation></annotation></enumeration>
+            <enumeration value="UKR"><annotation><documentation>Ukraine</documentation></annotation></enumeration>
+            <enumeration value="UMI"><annotation><documentation>United States Minor Outlying Islands</documentation></annotation></enumeration>
+            <enumeration value="RKS"><annotation><documentation>Kosovo</documentation></annotation></enumeration>
+            <enumeration value="URY"><annotation><documentation>Uruguay</documentation></annotation></enumeration>
+            <enumeration value="USA"><annotation><documentation>United States of America</documentation></annotation></enumeration>
+            <enumeration value="UZB"><annotation><documentation>Uzbekistan</documentation></annotation></enumeration>
+            <enumeration value="VAT"><annotation><documentation>Holy See</documentation></annotation></enumeration>
+            <enumeration value="VCT"><annotation><documentation>Saint Vincent and the Grenadines</documentation></annotation></enumeration>
+            <enumeration value="VEN"><annotation><documentation>Venezuela (Bolivarian Republic of)</documentation></annotation></enumeration>
+            <enumeration value="VGB"><annotation><documentation>Virgin Islands (British)</documentation></annotation></enumeration>
+            <enumeration value="VIR"><annotation><documentation>Virgin Islands (U.S.)</documentation></annotation></enumeration>
+            <enumeration value="VNM"><annotation><documentation>Viet Nam</documentation></annotation></enumeration>
+            <enumeration value="VUT"><annotation><documentation>Vanuatu</documentation></annotation></enumeration>
+            <enumeration value="WLF"><annotation><documentation>Wallis and Futuna</documentation></annotation></enumeration>
+            <enumeration value="WSM"><annotation><documentation>Samoa</documentation></annotation></enumeration>
+            <enumeration value="YEM"><annotation><documentation>Yemen</documentation></annotation></enumeration>
+            <enumeration value="ZAF"><annotation><documentation>South Africa</documentation></annotation></enumeration>
+            <enumeration value="ZMB"><annotation><documentation>Zambia</documentation></annotation></enumeration>
+            <enumeration value="ZWE"><annotation><documentation>Zimbabwe</documentation></annotation></enumeration>
+        </restriction>
+    </simpleType>
+    <simpleType name="CurrencyCodeSType">
+        <annotation>
+            <documentation>Currency codes from ISO 4217 standard</documentation>
+        </annotation>
+        <restriction base="string">
+            <enumeration value="AED"><annotation><documentation>United Arab Emirates Dirham</documentation></annotation></enumeration>
+            <enumeration value="AFN"><annotation><documentation>Afghanistan Afghani</documentation></annotation></enumeration>
+            <enumeration value="AMD"><annotation><documentation>Armenia Dram</documentation></annotation></enumeration>
+            <enumeration value="ANG"><annotation><documentation>Netherlands Antilles Guilder</documentation></annotation></enumeration>
+            <enumeration value="AOA"><annotation><documentation>Angola Kwanza</documentation></annotation></enumeration>
+            <enumeration value="ARS"><annotation><documentation>Argentina Peso</documentation></annotation></enumeration>
+            <enumeration value="AUD"><annotation><documentation>Australia Dollar</documentation></annotation></enumeration>
+            <enumeration value="AWG"><annotation><documentation>Aruba Guilder</documentation></annotation></enumeration>
+            <enumeration value="AZN"><annotation><documentation>Azerbaijan Manat</documentation></annotation></enumeration>
+            <enumeration value="BAM"><annotation><documentation>Bosnia and Herzegovina Convertible Mark</documentation></annotation></enumeration>
+            <enumeration value="BBD"><annotation><documentation>Barbados Dollar</documentation></annotation></enumeration>
+            <enumeration value="BDT"><annotation><documentation>Bangladesh Taka</documentation></annotation></enumeration>
+            <enumeration value="BGN"><annotation><documentation>Bulgaria Lev</documentation></annotation></enumeration>
+            <enumeration value="BHD"><annotation><documentation>Bahrain Dinar</documentation></annotation></enumeration>
+            <enumeration value="BIF"><annotation><documentation>Burundi Franc</documentation></annotation></enumeration>
+            <enumeration value="BMD"><annotation><documentation>Bermuda Dollar</documentation></annotation></enumeration>
+            <enumeration value="BND"><annotation><documentation>Brunei Darussalam Dollar</documentation></annotation></enumeration>
+            <enumeration value="BOB"><annotation><documentation>Bolivia Boliviano</documentation></annotation></enumeration>
+            <enumeration value="BRL"><annotation><documentation>Brazil Real</documentation></annotation></enumeration>
+            <enumeration value="BSD"><annotation><documentation>Bahamas Dollar</documentation></annotation></enumeration>
+            <enumeration value="BTN"><annotation><documentation>Bhutan Ngultrum</documentation></annotation></enumeration>
+            <enumeration value="BWP"><annotation><documentation>Botswana Pula</documentation></annotation></enumeration>
+            <enumeration value="BYN"><annotation><documentation>Belarus Ruble</documentation></annotation></enumeration>
+            <enumeration value="BZD"><annotation><documentation>Belize Dollar</documentation></annotation></enumeration>
+            <enumeration value="CAD"><annotation><documentation>Canada Dollar</documentation></annotation></enumeration>
+            <enumeration value="CDF"><annotation><documentation>Congo/Kinshasa Franc</documentation></annotation></enumeration>
+            <enumeration value="CHF"><annotation><documentation>Switzerland Franc</documentation></annotation></enumeration>
+            <enumeration value="CLP"><annotation><documentation>Chile Peso</documentation></annotation></enumeration>
+            <enumeration value="CNY"><annotation><documentation>China Yuan Renminbi</documentation></annotation></enumeration>
+            <enumeration value="COP"><annotation><documentation>Colombia Peso</documentation></annotation></enumeration>
+            <enumeration value="CRC"><annotation><documentation>Costa Rica Colon</documentation></annotation></enumeration>
+            <enumeration value="CUC"><annotation><documentation>Cuba Convertible Peso</documentation></annotation></enumeration>
+            <enumeration value="CUP"><annotation><documentation>Cuba Peso</documentation></annotation></enumeration>
+            <enumeration value="CVE"><annotation><documentation>Cape Verde Escudo</documentation></annotation></enumeration>
+            <enumeration value="CZK"><annotation><documentation>Czech Republic Koruna</documentation></annotation></enumeration>
+            <enumeration value="DJF"><annotation><documentation>Djibouti Franc</documentation></annotation></enumeration>
+            <enumeration value="DKK"><annotation><documentation>Denmark Krone</documentation></annotation></enumeration>
+            <enumeration value="DOP"><annotation><documentation>Dominican Republic Peso</documentation></annotation></enumeration>
+            <enumeration value="DZD"><annotation><documentation>Algeria Dinar</documentation></annotation></enumeration>
+            <enumeration value="EGP"><annotation><documentation>Egypt Pound</documentation></annotation></enumeration>
+            <enumeration value="ERN"><annotation><documentation>Eritrea Nakfa</documentation></annotation></enumeration>
+            <enumeration value="ETB"><annotation><documentation>Ethiopia Birr</documentation></annotation></enumeration>
+            <enumeration value="EUR"><annotation><documentation>Euro Member Countries</documentation></annotation></enumeration>
+            <enumeration value="FJD"><annotation><documentation>Fiji Dollar</documentation></annotation></enumeration>
+            <enumeration value="FKP"><annotation><documentation>Falkland Islands (Malvinas) Pound</documentation></annotation></enumeration>
+            <enumeration value="GBP"><annotation><documentation>United Kingdom Pound</documentation></annotation></enumeration>
+            <enumeration value="GEL"><annotation><documentation>Georgia Lari</documentation></annotation></enumeration>
+            <enumeration value="GGP"><annotation><documentation>Guernsey Pound</documentation></annotation></enumeration>
+            <enumeration value="GHS"><annotation><documentation>Ghana Cedi</documentation></annotation></enumeration>
+            <enumeration value="GIP"><annotation><documentation>Gibraltar Pound</documentation></annotation></enumeration>
+            <enumeration value="GMD"><annotation><documentation>Gambia Dalasi</documentation></annotation></enumeration>
+            <enumeration value="GNF"><annotation><documentation>Guinea Franc</documentation></annotation></enumeration>
+            <enumeration value="GTQ"><annotation><documentation>Guatemala Quetzal</documentation></annotation></enumeration>
+            <enumeration value="GYD"><annotation><documentation>Guyana Dollar</documentation></annotation></enumeration>
+            <enumeration value="HKD"><annotation><documentation>Hong Kong Dollar</documentation></annotation></enumeration>
+            <enumeration value="HNL"><annotation><documentation>Honduras Lempira</documentation></annotation></enumeration>
+            <enumeration value="HRK"><annotation><documentation>Croatia Kuna</documentation></annotation></enumeration>
+            <enumeration value="HTG"><annotation><documentation>Haiti Gourde</documentation></annotation></enumeration>
+            <enumeration value="HUF"><annotation><documentation>Hungary Forint</documentation></annotation></enumeration>
+            <enumeration value="IDR"><annotation><documentation>Indonesia Rupiah</documentation></annotation></enumeration>
+            <enumeration value="ILS"><annotation><documentation>Israel Shekel</documentation></annotation></enumeration>
+            <enumeration value="IMP"><annotation><documentation>Isle of Man Pound</documentation></annotation></enumeration>
+            <enumeration value="INR"><annotation><documentation>India Rupee</documentation></annotation></enumeration>
+            <enumeration value="IQD"><annotation><documentation>Iraq Dinar</documentation></annotation></enumeration>
+            <enumeration value="IRR"><annotation><documentation>Iran Rial</documentation></annotation></enumeration>
+            <enumeration value="ISK"><annotation><documentation>Iceland Krona</documentation></annotation></enumeration>
+            <enumeration value="JEP"><annotation><documentation>Jersey Pound</documentation></annotation></enumeration>
+            <enumeration value="JMD"><annotation><documentation>Jamaica Dollar</documentation></annotation></enumeration>
+            <enumeration value="JOD"><annotation><documentation>Jordan Dinar</documentation></annotation></enumeration>
+            <enumeration value="JPY"><annotation><documentation>Japan Yen</documentation></annotation></enumeration>
+            <enumeration value="KES"><annotation><documentation>Kenya Shilling</documentation></annotation></enumeration>
+            <enumeration value="KGS"><annotation><documentation>Kyrgyzstan Som</documentation></annotation></enumeration>
+            <enumeration value="KHR"><annotation><documentation>Cambodia Riel</documentation></annotation></enumeration>
+            <enumeration value="KMF"><annotation><documentation>Comorian Franc</documentation></annotation></enumeration>
+            <enumeration value="KPW"><annotation><documentation>Korea (North) Won</documentation></annotation></enumeration>
+            <enumeration value="KRW"><annotation><documentation>Korea (South) Won</documentation></annotation></enumeration>
+            <enumeration value="KWD"><annotation><documentation>Kuwait Dinar</documentation></annotation></enumeration>
+            <enumeration value="KYD"><annotation><documentation>Cayman Islands Dollar</documentation></annotation></enumeration>
+            <enumeration value="KZT"><annotation><documentation>Kazakhstan Tenge</documentation></annotation></enumeration>
+            <enumeration value="LAK"><annotation><documentation>Laos Kip</documentation></annotation></enumeration>
+            <enumeration value="LBP"><annotation><documentation>Lebanon Pound</documentation></annotation></enumeration>
+            <enumeration value="LKR"><annotation><documentation>Sri Lanka Rupee</documentation></annotation></enumeration>
+            <enumeration value="LRD"><annotation><documentation>Liberia Dollar</documentation></annotation></enumeration>
+            <enumeration value="LSL"><annotation><documentation>Lesotho Loti</documentation></annotation></enumeration>
+            <enumeration value="LYD"><annotation><documentation>Libya Dinar</documentation></annotation></enumeration>
+            <enumeration value="MAD"><annotation><documentation>Morocco Dirham</documentation></annotation></enumeration>
+            <enumeration value="MDL"><annotation><documentation>Moldova Leu</documentation></annotation></enumeration>
+            <enumeration value="MGA"><annotation><documentation>Madagascar Ariary</documentation></annotation></enumeration>
+            <enumeration value="MKD"><annotation><documentation>Macedonia Denar</documentation></annotation></enumeration>
+            <enumeration value="MMK"><annotation><documentation>Myanmar (Burma) Kyat</documentation></annotation></enumeration>
+            <enumeration value="MNT"><annotation><documentation>Mongolia Tughrik</documentation></annotation></enumeration>
+            <enumeration value="MOP"><annotation><documentation>Macau Pataca</documentation></annotation></enumeration>
+            <enumeration value="MRU"><annotation><documentation>Mauritania Ouguiya</documentation></annotation></enumeration>
+            <enumeration value="MUR"><annotation><documentation>Mauritius Rupee</documentation></annotation></enumeration>
+            <enumeration value="MVR"><annotation><documentation>Maldives (Maldive Islands) Rufiyaa</documentation></annotation></enumeration>
+            <enumeration value="MWK"><annotation><documentation>Malawi Kwacha</documentation></annotation></enumeration>
+            <enumeration value="MXN"><annotation><documentation>Mexico Peso</documentation></annotation></enumeration>
+            <enumeration value="MYR"><annotation><documentation>Malaysia Ringgit</documentation></annotation></enumeration>
+            <enumeration value="MZN"><annotation><documentation>Mozambique Metical</documentation></annotation></enumeration>
+            <enumeration value="NAD"><annotation><documentation>Namibia Dollar</documentation></annotation></enumeration>
+            <enumeration value="NGN"><annotation><documentation>Nigeria Naira</documentation></annotation></enumeration>
+            <enumeration value="NIO"><annotation><documentation>Nicaragua Cordoba</documentation></annotation></enumeration>
+            <enumeration value="NOK"><annotation><documentation>Norway Krone</documentation></annotation></enumeration>
+            <enumeration value="NPR"><annotation><documentation>Nepal Rupee</documentation></annotation></enumeration>
+            <enumeration value="NZD"><annotation><documentation>New Zealand Dollar</documentation></annotation></enumeration>
+            <enumeration value="OMR"><annotation><documentation>Oman Rial</documentation></annotation></enumeration>
+            <enumeration value="PAB"><annotation><documentation>Panama Balboa</documentation></annotation></enumeration>
+            <enumeration value="PEN"><annotation><documentation>Peru Sol</documentation></annotation></enumeration>
+            <enumeration value="PGK"><annotation><documentation>Papua New Guinea Kina</documentation></annotation></enumeration>
+            <enumeration value="PHP"><annotation><documentation>Philippines Peso</documentation></annotation></enumeration>
+            <enumeration value="PKR"><annotation><documentation>Pakistan Rupee</documentation></annotation></enumeration>
+            <enumeration value="PLN"><annotation><documentation>Poland Zloty</documentation></annotation></enumeration>
+            <enumeration value="PYG"><annotation><documentation>Paraguay Guarani</documentation></annotation></enumeration>
+            <enumeration value="QAR"><annotation><documentation>Qatar Riyal</documentation></annotation></enumeration>
+            <enumeration value="RON"><annotation><documentation>Romania Leu</documentation></annotation></enumeration>
+            <enumeration value="RSD"><annotation><documentation>Serbia Dinar</documentation></annotation></enumeration>
+            <enumeration value="RUB"><annotation><documentation>Russia Ruble</documentation></annotation></enumeration>
+            <enumeration value="RWF"><annotation><documentation>Rwanda Franc</documentation></annotation></enumeration>
+            <enumeration value="SAR"><annotation><documentation>Saudi Arabia Riyal</documentation></annotation></enumeration>
+            <enumeration value="SBD"><annotation><documentation>Solomon Islands Dollar</documentation></annotation></enumeration>
+            <enumeration value="SCR"><annotation><documentation>Seychelles Rupee</documentation></annotation></enumeration>
+            <enumeration value="SDG"><annotation><documentation>Sudan Pound</documentation></annotation></enumeration>
+            <enumeration value="SEK"><annotation><documentation>Sweden Krona</documentation></annotation></enumeration>
+            <enumeration value="SGD"><annotation><documentation>Singapore Dollar</documentation></annotation></enumeration>
+            <enumeration value="SHP"><annotation><documentation>Saint Helena Pound</documentation></annotation></enumeration>
+            <enumeration value="SLL"><annotation><documentation>Sierra Leone Leone</documentation></annotation></enumeration>
+            <enumeration value="SOS"><annotation><documentation>Somalia Shilling</documentation></annotation></enumeration>
+            <enumeration value="SPL"><annotation><documentation>Seborga Luigino</documentation></annotation></enumeration>
+            <enumeration value="SRD"><annotation><documentation>Suriname Dollar</documentation></annotation></enumeration>
+            <enumeration value="STN"><annotation><documentation>Sao Tome and Principe Dobra</documentation></annotation></enumeration>
+            <enumeration value="SVC"><annotation><documentation>El Salvador Colon</documentation></annotation></enumeration>
+            <enumeration value="SYP"><annotation><documentation>Syria Pound</documentation></annotation></enumeration>
+            <enumeration value="SZL"><annotation><documentation>eSwatini Lilangeni</documentation></annotation></enumeration>
+            <enumeration value="THB"><annotation><documentation>Thailand Baht</documentation></annotation></enumeration>
+            <enumeration value="TJS"><annotation><documentation>Tajikistan Somoni</documentation></annotation></enumeration>
+            <enumeration value="TMT"><annotation><documentation>Turkmenistan Manat</documentation></annotation></enumeration>
+            <enumeration value="TND"><annotation><documentation>Tunisia Dinar</documentation></annotation></enumeration>
+            <enumeration value="TOP"><annotation><documentation>Tonga Pa'anga</documentation></annotation></enumeration>
+            <enumeration value="TRY"><annotation><documentation>Turkey Lira</documentation></annotation></enumeration>
+            <enumeration value="TTD"><annotation><documentation>Trinidad and Tobago Dollar</documentation></annotation></enumeration>
+            <enumeration value="TVD"><annotation><documentation>Tuvalu Dollar</documentation></annotation></enumeration>
+            <enumeration value="TWD"><annotation><documentation>Taiwan New Dollar</documentation></annotation></enumeration>
+            <enumeration value="TZS"><annotation><documentation>Tanzania Shilling</documentation></annotation></enumeration>
+            <enumeration value="UAH"><annotation><documentation>Ukraine Hryvnia</documentation></annotation></enumeration>
+            <enumeration value="UGX"><annotation><documentation>Uganda Shilling</documentation></annotation></enumeration>
+            <enumeration value="USD"><annotation><documentation>United States Dollar</documentation></annotation></enumeration>
+            <enumeration value="UYU"><annotation><documentation>Uruguay Peso</documentation></annotation></enumeration>
+            <enumeration value="UZS"><annotation><documentation>Uzbekistan Som</documentation></annotation></enumeration>
+            <enumeration value="VEF"><annotation><documentation>Venezuela Bolivar</documentation></annotation></enumeration>
+            <enumeration value="VND"><annotation><documentation>Viet Nam Dong</documentation></annotation></enumeration>
+            <enumeration value="VUV"><annotation><documentation>Vanuatu Vatu</documentation></annotation></enumeration>
+            <enumeration value="WST"><annotation><documentation>Samoa Tala</documentation></annotation></enumeration>
+            <enumeration value="XAF"><annotation><documentation>Communaute Financiere Africaine (BEAC) CFA Franc BEAC</documentation></annotation></enumeration>
+            <enumeration value="XCD"><annotation><documentation>East Caribbean Dollar</documentation></annotation></enumeration>
+            <enumeration value="XDR"><annotation><documentation>International Monetary Fund (IMF) Special Drawing Rights</documentation></annotation></enumeration>
+            <enumeration value="XOF"><annotation><documentation>Communaute Financiere Africaine (BCEAO) Franc</documentation></annotation></enumeration>
+            <enumeration value="XPF"><annotation><documentation>Comptoirs Francais du Pacifique (CFP) Franc</documentation></annotation></enumeration>
+            <enumeration value="YER"><annotation><documentation>Yemen Rial</documentation></annotation></enumeration>
+            <enumeration value="ZAR"><annotation><documentation>South Africa Rand</documentation></annotation></enumeration>
+            <enumeration value="ZMW"><annotation><documentation>Zambia Kwacha</documentation></annotation></enumeration>
+            <enumeration value="ZWD"><annotation><documentation>Zimbabwe Dollar</documentation></annotation></enumeration>
+        </restriction>
+    </simpleType>
+</schema>
