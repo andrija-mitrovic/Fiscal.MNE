@@ -113,12 +113,12 @@ namespace Fiscal.MNE.ConsoleUI
 
         private static void TestInvoiceRegistrationCash()
         {
-            var cashDepositType = GetInvoiceTestDataCash();
+            var invoiceHeaderType = GetInvoiceTestDataCash();
 
             using (X509Certificate2 certificate = new X509Certificate2(KEYSTORE_LOCATION, KEYSTORE_PASS))
             {
                 Fiscalization fiscalization = new Fiscalization(certificate);
-                var response = fiscalization.RegisterInvoice(cashDepositType);
+                var response = fiscalization.RegisterInvoice(invoiceHeaderType);
 
                 if (response != null)
                     Console.WriteLine("Registration successful!");
@@ -127,12 +127,12 @@ namespace Fiscal.MNE.ConsoleUI
 
         private static void TestInvoiceRegistrationNoncash()
         {
-            var cashDepositType = GetInvoiceTestDataNoncash();
+            var invoiceHeaderType = GetInvoiceTestDataNoncash();
 
             using (X509Certificate2 certificate = new X509Certificate2(KEYSTORE_LOCATION, KEYSTORE_PASS))
             {
                 Fiscalization fiscalization = new Fiscalization(certificate);
-                var response = fiscalization.RegisterInvoice(cashDepositType);
+                var response = fiscalization.RegisterInvoice(invoiceHeaderType);
 
                 if (response != null)
                     Console.WriteLine("Registration successful!");
