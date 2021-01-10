@@ -18,6 +18,16 @@ Fiscalization class contains two type of methods (sync and async) for sending da
         public async Task<RegisterCashDepositResponse> RegisterCashDepositAsync(CashDepositHeaderType cashDepositHeaderType) {...}
     }
 
+Service call example:
+
+    var invoiceHeaderType = ...;
+
+    using (X509Certificate2 certificate = new X509Certificate2(KEYSTORE_LOCATION, KEYSTORE_PASS))
+    {
+        Fiscalization fiscalization = new Fiscalization(certificate);
+        var response = fiscalization.RegisterInvoice(invoiceHeaderType);
+    }
+
 # Open source license
     The MIT License
 
