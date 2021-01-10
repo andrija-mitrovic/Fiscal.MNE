@@ -1,7 +1,7 @@
 # Fiscal.MNE
 .NET clinet library for access to the DPR (Department of Public Revenues) Web Service
 
-Microsoft's [wsdl.exe](https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-2.0/7h3ystb6(v=vs.80)?redirectedfrom=MSDN) tool was used to generate a proxy class with the structure according to the wsdl scheme published on the Tax Administration's website Tehnical specification and which is included in the project's source code. All SOAP calls to the Web Service work through the generated SOAP client FiscalizationService class. The complete implementation is in the Fiscalization class which contains sync and async methods.
+Microsoft's [wsdl.exe](https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-2.0/7h3ystb6(v=vs.80)?redirectedfrom=MSDN) tool was used to generate a proxy class with the structure according to the wsdl scheme published on the Tax Administration's website [Tehnical specification](https://poreskauprava.gov.me/vijesti/237406/ELEKTRONSKA-FISKALIZACIJA-Nove-verzije-dokumentacije.html) and which is included in the project's source code. All SOAP calls to the Web Service work through the generated SOAP client FiscalizationService class. The complete implementation is in the Fiscalization class which contains sync and async methods.
 
 # Open source license
     The MIT License
