@@ -3,7 +3,20 @@
 
 Folder FZWS.ConsoleUI contains examples of how to use Fiscal.MNE library. View file *FZWS.ConsoleUI/Program.cs*
 
-Microsoft's [wsdl.exe](https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-2.0/7h3ystb6(v=vs.80)?redirectedfrom=MSDN) tool was used to generate a proxy class with the structure according to the wsdl scheme published on the Department of Public Revenues's website [Tehnical specification](https://poreskauprava.gov.me/vijesti/237406/ELEKTRONSKA-FISKALIZACIJA-Nove-verzije-dokumentacije.html) and which is included in the project's source code. All SOAP calls to the Web Service work through the generated SOAP client FiscalizationService class. The complete implementation is in the Fiscalization class which contains sync and async methods.
+Microsoft's [wsdl.exe](https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-2.0/7h3ystb6(v=vs.80)?redirectedfrom=MSDN) tool was used to generate a proxy class with the structure according to the wsdl scheme published on the Department of Public Revenues's website [Tehnical specification](https://poreskauprava.gov.me/vijesti/237406/ELEKTRONSKA-FISKALIZACIJA-Nove-verzije-dokumentacije.html) and which is included in the project source code. All SOAP calls to the Web Service work through the generated SOAP client FiscalizationService class. The complete implementation is in the Fiscalization class which contains sync and async methods.
+
+# Usage
+Fiscalization class contains two type of methods (sync and async) for sending data to the service:
+
+    public class Fiscalization
+    {
+        public RegisterInvoiceResponse RegisterInvoice(InvoiceHeaderType invoiceHeaderType) {...}
+        public async Task<RegisterInvoiceResponse> RegisterInvoiceAsync(InvoiceHeaderType invoiceHeaderType) {...}
+        public RegisterTCRResponse RegisterTCR(TCRHeaderType tcrHeaderType) {...}
+        async Task<RegisterTCRResponse> RegisterTCRAsync(TCRHeaderType tcrHeaderType) {...}
+        public RegisterCashDepositResponse RegisterCashDeposit(CashDepositHeaderType cashDepositHeaderType) {...}
+        public async Task<RegisterCashDepositResponse> RegisterCashDepositAsync(CashDepositHeaderType cashDepositHeaderType) {...}
+    }
 
 # Open source license
     The MIT License
