@@ -8,6 +8,7 @@ Microsoft's [wsdl.exe](https://docs.microsoft.com/en-us/previous-versions/dotnet
 # Usage
 Fiscalization class contains two type of methods (sync and async) for sending data to the service:
 
+```csharp
     public class Fiscalization
     {
         public RegisterInvoiceResponse RegisterInvoice(InvoiceHeaderType invoiceHeaderType) {...}
@@ -17,7 +18,7 @@ Fiscalization class contains two type of methods (sync and async) for sending da
         public RegisterCashDepositResponse RegisterCashDeposit(CashDepositHeaderType cashDepositHeaderType) {...}
         public async Task<RegisterCashDepositResponse> RegisterCashDepositAsync(CashDepositHeaderType cashDepositHeaderType) {...}
     }
-
+```
 Service call example:
 
     var invoiceHeaderType = ...;
