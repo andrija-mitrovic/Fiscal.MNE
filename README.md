@@ -21,6 +21,7 @@ Fiscalization class contains two type of methods (sync and async) for sending da
 ```
 Service call example:
 
+```csharp
     var invoiceHeaderType = ...;
 
     using (X509Certificate2 certificate = new X509Certificate2(KEYSTORE_LOCATION, KEYSTORE_PASS))
@@ -28,7 +29,7 @@ Service call example:
         Fiscalization fiscalization = new Fiscalization(certificate);
         var response = fiscalization.RegisterInvoice(invoiceHeaderType);
     }
-
+```
 # Open source license
     The MIT License
 
