@@ -1,5 +1,5 @@
 # Fiscal.MNE
-.NET client library for access to the DPR (Department of Public Revenues) Web Service
+.NET client library for access to the Tax Administration Web Service
 
 Folder FZWS.ConsoleUI contains examples of how to use Fiscal.MNE library. View file *FZWS.ConsoleUI/Program.cs*
 
