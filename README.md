@@ -96,7 +96,7 @@ Service call example:
                     }
                  },
                  TypeOfInv = ...,
-                 IsSimplifiedInv = false,
+                 IsSimplifiedInv = ...,
                  IssueDateTime = ...,
                  InvNum = ...,
                  InvOrdNum = ...,
