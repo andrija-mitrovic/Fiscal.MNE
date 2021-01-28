@@ -22,7 +22,96 @@ Fiscalization class contains two type of methods (sync and async) for sending da
 Service call example:
 
 ```csharp
-    var invoiceHeaderType = ...;
+    var invoiceHeaderType = new InvoiceHeaderType()
+    {
+        IssuerTIN = ...,
+        Header = new RegisterInvoiceRequestHeaderType()
+        {
+            UUID = Guid.NewGuid().ToString(),
+            SendDateTime = DateTime.Parse(DateTime.Now.ToString(Fiscalization.DATE_FORMAT_LONG))
+        },
+        Invoice = new InvoiceType()
+        {
+            Seller = new SellerType()
+            {
+                IDType = ...,
+                IDNum = ...,
+                Name = ...,
+                Address = ...,
+                Town = ...,
+                Country = ...,
+                CountrySpecified = ...
+            },
+            Buyer = new BuyerType()
+            {
+                IDType = ...,
+                IDTypeSpecified = ...,
+                IDNum = ...,
+                Name = ...,
+                Address = ...,
+                Town = ...,
+                Country = ...,
+                CountrySpecified = ...
+            },
+            PayMethods = new[]
+            {
+                new PayMethodType()
+                {
+                    Type=...,
+                    Amt=...
+                }
+            },
+            Items = new[]
+            {
+                new InvoiceItemType()
+                {
+                        C=...,
+                        N=...,
+                        U=...,
+                        Q=...,
+                        PA=...,
+                        PB=...,
+                        R=...,
+                        RSpecified=...,
+                        RR=...,
+                        RRSpecified=...,
+                        UPB=...,
+                        UPA=...,
+                        VA=...,
+                        VASpecified=...,
+                        VR=...,
+                        VRSpecified=...
+                    }
+                },
+                SameTaxes = new[]
+                {
+                    new SameTaxType()
+                    {
+                       NumOfItems=...,
+                       PriceBefVAT=...,
+                       VATAmt=...,
+                       VATAmtSpecified=...,
+                       VATRate = ...,
+                       VATRateSpecified=...
+                    }
+                 },
+                 TypeOfInv = ...,
+                 IsSimplifiedInv = false,
+                 IssueDateTime = ...,
+                 InvNum = ...,
+                 InvOrdNum = ...,
+                 TCRCode = ...,
+                 IsIssuerInVAT = ...,
+                 TotPriceWoVAT = ...,
+                 TotVATAmt = ...,
+                 TotVATAmtSpecified = ...,
+                 TotPrice = ...,
+                 OperatorCode = ...,
+                 BusinUnitCode = ...,
+                 SoftCode = ...,
+                 IsReverseCharge = ...
+            }
+    };
 
     using (X509Certificate2 certificate = new X509Certificate2(KEYSTORE_LOCATION, KEYSTORE_PASS))
     {
