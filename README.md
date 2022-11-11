@@ -1,7 +1,7 @@
 # Fiscal.MNE
 .NET client library for access to the Tax Administration Web Service
 
-Folder FZWS.ConsoleUI contains examples of how to use Fiscal.MNE library. View file *FZWS.ConsoleUI/Program.cs*
+Folder Fiscal.MNE.ConsoleUI contains examples of how to use Fiscal.MNE library. View file *Fiscal.MNE.ConsoleUI/Program.cs*
 
 Microsoft's [wsdl.exe](https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-2.0/7h3ystb6(v=vs.80)?redirectedfrom=MSDN) tool was used to generate a proxy class with the structure according to the wsdl scheme published on the Department of Public Revenues's website [Tehnical specification](https://poreskauprava.gov.me/vijesti/237406/ELEKTRONSKA-FISKALIZACIJA-Nove-verzije-dokumentacije.html) and which is included in the project source code. All SOAP calls to the Web Service work through the generated SOAP client FiscalizationService class. The complete implementation is in the Fiscalization class which contains sync and async methods.
 
